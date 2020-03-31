@@ -22,6 +22,7 @@ def parseArgs():
     parser.add_argument("repo_name", help="Github repository name")
     parser.add_argument("tag_name", help="Tag name of existing release")
     parser.add_argument("api_token", help="Github API token with necessary privilages")
+    parser.add_argument("-dt", "--deletetag", help="Delete git Tag", action="store_true")
     parser.add_argument("-v", "--verbose", help="increase output verbosity", action="store_true")
     args = parser.parse_args()
     params["tag_name"] = args.tag_name
@@ -91,7 +92,8 @@ def deleteReleaseAndTag():
     release_id = getReleaseId()
     if release_id != 0:
         deleteRelease(release_id)
-        deleteTag()
+        if args.deletetag:
+            deleteTag()
 
 def main():
     parseArgs()
